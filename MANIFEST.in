@@ -1,0 +1,2 @@
+include movie_searcher/data/*.yaml
+include README.md

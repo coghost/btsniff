@@ -1,0 +1,41 @@
+__EN_DOT_K_INT: &DOT_K_INT
+  _attr_refine: enrich_dot_k_int
+
+__REFINE_URL: &REF_URL
+  _attr: href
+  _attr_refine: enrich_url
+
+
+__raw:
+  site_url: https://www.bbt.tv
+
+movies:
+  _locator: ul.list>li
+  _index: ~
+  resolution: a.pic>span.text
+  image:
+    _locator: a.pic>img
+    _attr: src
+  movie:
+    _locator: a.name
+    name:
+    link:
+      <<: *REF_URL
+
+score:
+  _locator: span.score
+
+torrents:
+  _locator: ul.downloadlist>li
+  _index:
+    - 1
+  name:
+    _attr_refine: _refine_torrent_name
+  size: span.size
+  link:
+    _locator: a.action
+    <<: *REF_URL
+
+thunder:
+  _locator: div.right a.current
+  _attr: href
