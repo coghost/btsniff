@@ -5,7 +5,5 @@ __all__ = [
     'VERSION',
 ]
 
-app_root = str(Path(__file__).parents[1])
-
-HOME_DIR = Path(app_root)
-VERSION = '0.0.1.2'
+VERSION = '0.0.1.3'
+HOME_DIR = Path(__file__).parents[1]

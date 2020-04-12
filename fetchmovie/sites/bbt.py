@@ -69,15 +69,15 @@ class Bbt(AsyncCrawler):
         return parser.data['thunder']
 
 
-def run_bbt(name, display_img=False):
-    bbt = Bbt()
+def run_bbt(name, display_img=False, overwrite=False):
+    bbt = Bbt(overwrite=overwrite)
 
     dat = bbt.search_name(name)
     movies = [f'{m["movie"]["name"]}-{m["resolution"]}' for m in dat]
     movie_images = []
     if display_img:
         movie_images = [f"{m['image']}" for m in dat]
-    c = num_choice(movies, img_list=movie_images)
+    c = num_choice(movies, img_list=movie_images, img_cache_dir=bbt.cache['site_media'])
 
     dat = dat[c]
     dat = bbt.get_torrents(dat['movie']['link'])
