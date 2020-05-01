@@ -7,15 +7,13 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from icraw import AsyncCrawler
-from iparse import IParser
 import sgr_ansi as echo
 from vto.core import num_choice
 
 app_root = Path(__file__).parents[1]
 
 from fetchmovie.sites._chrome import get_page_by_chrome
-
-BBT_HOME_DIR = app_root / 'data'
+from ._parser import MovieParser
 
 
 @dataclass
@@ -24,14 +22,7 @@ class BbtUrl:
     search: str = 'http://www.bbt.tv/index.php?s=vod-search'
 
 
-class BbtParser(IParser):
-    def __init__(self, raw_data='', file_name='', is_test_mode=True, **kwargs):
-        kwargs['startup_dir'] = kwargs.get('startup_dir', BBT_HOME_DIR)
-        kwargs['log_level'] = 20
-        if raw_data:
-            kwargs['raw_data'] = raw_data
-        super().__init__(file_name, is_test_mode=is_test_mode, **kwargs)
-
+class BbtParser(MovieParser):
     def _refine_torrent_name(self, info):
         return self.last_non_empty_info(info, index=0)
 
@@ -69,7 +60,7 @@ class Bbt(AsyncCrawler):
         return parser.data['thunder']
 
 
-def run_bbt(name, display_img=False, overwrite=False):
+def run(name, display_img=False, overwrite=False):
     bbt = Bbt(overwrite=overwrite)
 
     dat = bbt.search_name(name)
