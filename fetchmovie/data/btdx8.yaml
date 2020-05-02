@@ -1,0 +1,38 @@
+__EN_DOT_K_INT: &DOT_K_INT
+  _attr_refine: enrich_dot_k_int
+
+__REFINE_URL: &REF_URL
+  _attr: href
+  _attr_refine: enrich_url
+
+__raw:
+  site_url: https://www.btdx8.com
+
+movies:
+  _locator: div#content div.post
+  _index: ~
+  movie:
+    _locator: h3.entry-title>a
+    name:
+      _attr: title
+    url:
+      <<: *REF_URL
+  post_date:
+    _index: -1
+    _locator: span.date
+    _attr_refine: true
+  image:
+    _attr: src
+    _locator: a.entry-thumb>img
+
+torrents:
+  direct: &TORR
+    _index: ~
+    _locator: div#btxt>a
+    name:
+      _joiner: ': '
+    url:
+      _attr: href
+  more:
+    <<: *TORR
+    _locator: a.download-link
