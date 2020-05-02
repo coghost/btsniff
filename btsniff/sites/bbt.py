@@ -9,6 +9,7 @@ from pathlib import Path
 from icraw import AsyncCrawler
 import sgr_ansi as echo
 from vto.core import num_choice
+from vto import dec
 
 app_root = Path(__file__).parents[1]
 
@@ -37,25 +38,21 @@ class Bbt(AsyncCrawler):
         parser.do_parse()
         return parser.data['movies']
 
-    def get_torrents(self, url):
+    def get_detail_page(self, url):
         url = url.replace('https://', 'http://')
         cnt = self.bs4get(url, is_json=False)
         parser = BbtParser(raw_data=cnt)
         parser.do_parse()
         return parser.data['torrents']
 
-    def get_thunder_link(self, url):
-        st = time.time()
-
+    @dec.prt(True)
+    def get_final_link(self, url):
         url = url.replace('https://', 'http://')
         echo.BIg(f'>>> start to get thunder link:', end=' ')
         echo.BIU(url)
         dat = get_page_by_chrome(url)
         parser = BbtParser(raw_data=dat)
         parser.do_parse()
-        cost_time = round(time.time() - st, 2)
-
-        echo.BIg(f'    total cost {cost_time}s <<<')
         return parser.data['thunder']
 
 
@@ -70,9 +67,9 @@ def run(name, display_img=False, overwrite=False):
     c = num_choice(movies, img_list=movie_images, img_cache_dir=bbt.cache['site_media'])
 
     dat = dat[c]
-    dat = bbt.get_torrents(dat['movie']['link'])
+    dat = bbt.get_detail_page(dat['movie']['link'])
     torrents = [f"{t['name']}" for t in dat]
     c = num_choice(torrents)
 
-    link = bbt.get_thunder_link(dat[c]['link'])
+    link = bbt.get_final_link(dat[c]['link'])
     return link
