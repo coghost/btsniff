@@ -5,5 +5,5 @@ __all__ = [
     'VERSION',
 ]
 
-VERSION = '0.0.1.3'
+VERSION = '0.0.1'
 HOME_DIR = Path(__file__).parents[1]

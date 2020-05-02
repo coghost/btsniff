@@ -1,18 +1,18 @@
 from setuptools import setup, find_packages
-from fetchmovie import VERSION
+from btsniff import VERSION
 
 setup(
-    name='fetchmovie',
+    name='btsniff',
     version=VERSION,
     include_package_data=True,
     package_data={
         '': ['README.md'],
-        'fetchmovie': ['data/*.yaml'],
+        'btsniff': ['data/*.yaml'],
     },
     packages=find_packages(),
     author='lihe',
     author_email='imanux@sina.com',
-    url='https://github.com/coghost/fetchmovie',
+    url='https://github.com/coghost/btsniff',
     description='movie searcher',
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
@@ -21,11 +21,11 @@ setup(
         'icraw', 'iparse', 'lxml', 'click', 'urllib3', 'vto'
     ],
     entry_points={
-        'console_scripts': ['fetchmovie=fetchmovie.app:run'],
+        'console_scripts': ['btsniff=btsniff.app:run'],
     },
     project_urls={
-        'Bug Reports': 'https://github.com/coghost/fetchmovie/issues',
-        'Source': 'https://github.com/coghost/fetchmovie',
+        'Bug Reports': 'https://github.com/coghost/btsniff/issues',
+        'Source': 'https://github.com/coghost/btsniff',
     },
     python_requires='>=3.7',
     classifiers=[

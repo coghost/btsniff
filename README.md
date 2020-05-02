@@ -1,17 +1,19 @@
-# fetchmovie
+# btsniff
 
-fetch movies url or torrents
+sniff movies url or torrents. 
+
+usually there are lot's of ads on these websites, so this will help you with only the bt torrents, just enjoy it.
 
 ## sites supported
 
 - [x] [bbt](https://bbt.tv)
-- [ ] [btdx8](https://www.btdx8.com/)
+- [x] [btdx8](https://www.btdx8.com/)
 - [ ] [dygod](https://www.dy2018.com/)
 
 ## install
 
 ```shell script
-pip install fetchmovie
+pip install btsniff
 ```
 
 ## USAGE
@@ -19,8 +21,8 @@ pip install fetchmovie
 ### show help
 
 ```sh
-fetchmovie -h
-Usage: fetchmovie [OPTIONS]
+btsniff -h
+Usage: btsniff [OPTIONS]
 
 Options:
   -n, --name TEXT      movie name [OPT] -n <name>
@@ -30,7 +32,7 @@ Options:
   -h, --help           Show this message and exit.
 ```
 
-### fetch by name
+### sniff by name
 
 > simple search
 

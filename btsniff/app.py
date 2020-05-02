@@ -16,15 +16,20 @@ app_root = str(Path(__file__).parents[1])
 sys.path.append(app_root)
 urllib3.disable_warnings()
 
-from fetchmovie.sites import SITES
+from btsniff.sites import SITES
 
 
 @click.command(context_settings=dict(help_option_names=['-h', '--help'], terminal_width=200))
 @click.option('--name', '-n', help=fmt_help('movie/actor name', '-n <name>'))
 @click.option('--site', '-s', default='bbt', help=fmt_help('site name', '-s <site_name>'))
+@click.option('--list_sites', '-l', is_flag=True, help=fmt_help('list supported sites', '-l'))
 @click.option('--overwrite', '-w', is_flag=True, help=fmt_help('overwrite local cache', '-w'))
 @click.option('--display_img', '-img', is_flag=True, help=fmt_help('display with image', '-img'))
-def run(name, site, display_img, overwrite=False):
+def run(name, site, display_img, overwrite=False, list_sites=False):
+    if list_sites:
+        for i, _site in enumerate(SITES.keys()):
+            print(echo.BIw_(f'site {i}:'), echo.BIg_(f'{_site}'))
+        return
     chain = Chain()
     chain.BIUg(f'[SEARCH] site').BIUr(f'{site}').BIUg(f'for').BIUb(f'"{name}"').show()
 

@@ -12,7 +12,7 @@ from vto.core import num_choice
 
 app_root = Path(__file__).parents[1]
 
-from fetchmovie.sites._chrome import get_page_by_chrome
+from btsniff.sites._chrome import get_page_by_chrome
 from ._parser import MovieParser
 
 
