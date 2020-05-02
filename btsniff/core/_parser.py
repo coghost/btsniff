@@ -11,7 +11,7 @@ class CNChar:
     COLON = '：'
 
 
-class MovieParser(IParser):
+class PageParser(IParser):
     def __init__(self, raw_data='', file_name='', is_test_mode=True, **kwargs):
         kwargs['startup_dir'] = kwargs.get('startup_dir', MOVIE_HOME_DIR)
         kwargs['log_level'] = 20
