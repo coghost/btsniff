@@ -5,8 +5,7 @@ import sgr_ansi
 from icraw import AsyncCrawler
 from vto.core import num_choice
 
-from ._chrome import get_page_by_chrome
-from ._parser import MovieParser
+from btsniff.core import PageParser
 
 
 @dataclass
@@ -16,7 +15,7 @@ class Btdx8Url:
     more: str = 'https://www.btdx8.com/down.php'
 
 
-class Btdx8Parser(MovieParser):
+class Btdx8Parser(PageParser):
     def _refine_torrent_name(self, info):
         return self.last_non_empty_info(info, index=0)
 

@@ -12,8 +12,7 @@ from vto.core import num_choice
 
 app_root = Path(__file__).parents[1]
 
-from btsniff.sites._chrome import get_page_by_chrome
-from ._parser import MovieParser
+from btsniff.core import get_page_by_chrome, PageParser
 
 
 @dataclass
@@ -22,7 +21,7 @@ class BbtUrl:
     search: str = 'http://www.bbt.tv/index.php?s=vod-search'
 
 
-class BbtParser(MovieParser):
+class BbtParser(PageParser):
     def _refine_torrent_name(self, info):
         return self.last_non_empty_info(info, index=0)
 
