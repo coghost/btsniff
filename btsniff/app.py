@@ -39,5 +39,16 @@ def run(name, site, display_img, overwrite=False, list_sites=False):
     copy_to_clipboard(link)
 
 
+def debug_site(site, name):
+    """we can debug a site
+
+    Arguments:
+        site {str} -- site
+        name {str} -- movie name
+    """
+    sniffer = SITES[site]
+    sniffer.run(name)
+
+
 if __name__ == '__main__':
     run()
