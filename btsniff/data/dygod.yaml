@@ -1,0 +1,25 @@
+__EN_DOT_K_INT: &DOT_K_INT
+  _attr_refine: enrich_dot_k_int
+
+__REFINE_URL: &REF_URL
+  _attr: href
+  _attr_refine: enrich_url
+
+__raw:
+  site_url: https://www.dy2018.com/
+
+movies:
+  _locator: a.ulink
+  _index: ~
+  name:
+  url:
+    <<: *REF_URL
+
+downloads:
+  _locator: div#Zoom table td>a
+  _index: ~
+  name:
+    _attr_refine: true
+  url:
+    _attr: href
+    _attr_refine: true
