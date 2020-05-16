@@ -12,10 +12,10 @@ from btsniff.core import PageParser, search_by_chrome
 
 
 @dataclass
-class DygodUrl:
+class SiteURL:
     home: str = 'https://www.dy2018.com/'
-    result: str = 'https://www.dy2018.com/result'
-    search: str = 'https://www.dy2018.com/e/search/index.php'
+    search: str = 'https://www.dy2018.com/result'
+    intro: str = f'电影天堂: {home}'
 
 
 class DygodParser(PageParser):
@@ -33,14 +33,14 @@ class DygodParser(PageParser):
 
 class Dygod(AsyncCrawler):
     def __init__(self, **kwargs):
-        kwargs['site_init_url'] = DygodUrl.home
+        kwargs['site_init_url'] = SiteURL.home
         super().__init__(**kwargs)
 
     @prt(True)
     def search_name(self, name):
-        pth, raw = self.load_cache(DygodUrl.result, data={'keywords': name}, use_str=True)
+        pth, raw = self.load_cache(SiteURL.search, data={'keywords': name}, use_str=True)
         if not raw or self.overwrite:
-            raw = search_by_chrome(DygodUrl.home, ('input.formhue', name))
+            raw = search_by_chrome(SiteURL.home, ('input.formhue', name))
             helper.write_file(raw, pth)
 
         parser = DygodParser(raw_data=raw)

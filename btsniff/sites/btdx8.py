@@ -9,10 +9,11 @@ from btsniff.core import PageParser
 
 
 @dataclass
-class Btdx8Url:
+class SiteURL:
     home: str = 'https://www.btdx8.com/'
     search: str = 'https://www.btdx8.com/?s={}'
     more: str = 'https://www.btdx8.com/down.php'
+    intro: str = f'比特大雄: {home}'
 
 
 class Btdx8Parser(PageParser):
@@ -22,11 +23,11 @@ class Btdx8Parser(PageParser):
 
 class Btdx8(AsyncCrawler):
     def __init__(self, **kwargs):
-        kwargs['site_init_url'] = Btdx8Url.home
+        kwargs['site_init_url'] = SiteURL.home
         super().__init__(**kwargs)
 
     def search_name(self, name):
-        cnt = self.bs4get(Btdx8Url.search.format(name))
+        cnt = self.bs4get(SiteURL.search.format(name))
         parser = Btdx8Parser(raw_data=cnt)
         parser.do_parse()
         return parser.data['movies']
@@ -61,8 +62,8 @@ def run(name, display_img=False, overwrite=False):
     torrents = [f"{t['name']}" for t in details]
     c = num_choice(torrents, depth=2)
     url = details[c]['url']
-    if Btdx8Url.more not in url:
+    if SiteURL.more not in url:
         return url
     else:
-        sgr_ansi.BIy('    >>>url is not supported download, please visit it manually!')
+        sgr_ansi.BIr('    >>>url is not supported download, click following link, visit it manually!<<<\n')
         return url

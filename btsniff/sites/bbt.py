@@ -17,9 +17,11 @@ from btsniff.core import get_page_by_chrome, PageParser
 
 
 @dataclass
-class BbtUrl:
-    home: str = 'http://www.bbt.tv/'
-    search: str = 'http://www.bbt.tv/index.php?s=vod-search'
+class SiteURL:
+    home: str = 'http://www.btbttv.cc/'
+    # !WARN: UA Redirect ERROR
+    search: str = 'http://www.btbttv.cc/index.php?s=vod-search'
+    intro: str = f'bt电影天堂: {home}'
 
 
 class BbtParser(PageParser):
@@ -29,11 +31,11 @@ class BbtParser(PageParser):
 
 class Bbt(AsyncCrawler):
     def __init__(self, **kwargs):
-        kwargs['site_init_url'] = BbtUrl.home
+        kwargs['site_init_url'] = SiteURL.home
         super().__init__(**kwargs)
 
     def search_name(self, name):
-        cnt = self.bs4post(BbtUrl.search, data={'wd': name}, ret='html')
+        cnt = self.bs4post(SiteURL.search, data={'wd': name}, ret='html')
         parser = BbtParser(raw_data=cnt)
         parser.do_parse()
         return parser.data['movies']
