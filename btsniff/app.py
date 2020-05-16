@@ -27,8 +27,9 @@ from btsniff.sites import SITES
 @click.option('--display_img', '-img', is_flag=True, help=fmt_help('display with image', '-img'))
 def run(name, site, display_img, overwrite=False, list_sites=False):
     if list_sites:
+        echo.BIy("Available sites:")
         for i, _site in enumerate(SITES.keys()):
-            print(echo.BIw_(f'site {i}:'), echo.BIg_(f'{_site}'))
+            print(echo.BIm_(f'{_site:>8}'), echo.BIg_(f'[{SITES.get(_site).SiteURL.intro}]'))
         return
     chain = Chain()
     chain.BIUg(f'[SEARCH] site').BIUr(f'{site}').BIUg(f'for').BIUb(f'"{name}"').show()
@@ -39,15 +40,10 @@ def run(name, site, display_img, overwrite=False, list_sites=False):
     copy_to_clipboard(link)
 
 
-def debug_site(site, name):
-    """we can debug a site
-
-    Arguments:
-        site {str} -- site
-        name {str} -- movie name
-    """
+def debug_site(site, name, overwrite=False):
+    """ local only """
     sniffer = SITES[site]
-    sniffer.run(name)
+    sniffer.run(name, overwrite=overwrite)
 
 
 if __name__ == '__main__':
